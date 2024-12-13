@@ -73,19 +73,52 @@ font-src 'self' https://cdnjs.cloudflare.com;">
     }
     </script>
 
+    <!-- 在 body 标签开始处添加导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="image/TTS.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="Logo">
+                <span data-i18n="nav.title">Ciallo TTS</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" data-i18n="nav.home">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-i18n="nav.about">关于</a>
+                    </li>
+                </ul>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="languageDropdown" role="button" data-toggle="dropdown">
+                        <i class="fas fa-globe"></i>
+                        <span data-i18n="nav.language">语言</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" data-lang="zh-CN">简体中文</a>
+                        <a class="dropdown-item" href="#" data-lang="en-US">English</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <div class="container-fluid d-flex flex-column justify-content-center align-items-center mt-5" style="min-height: 90vh;">
         <div class="row w-100 justify-content-center">
             <!-- 表单容器 -->
             <div class="col-md-8 col-lg-6 mb-3">
                 <div class="card shadow-sm h-100">
                     <div class="card-header text-center">
-                        <h2>文本转语音</h2>
+                        <h2 data-i18n="main.title">文本转语音</h2>
                     </div>
                     <div class="card-body">
                         <form id="text2voice-form">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="api">选择API：</label>
+                                    <label for="api" data-i18n="main.apiLabel">选择API：</label>
                                     <select class="form-control" id="api" required>
                                         <option value="workers-api">Workers API</option>
                                         <option value="deno-api">Deno API</option>
@@ -93,7 +126,7 @@ font-src 'self' https://cdnjs.cloudflare.com;">
                                     <small id="apiTips" class="form-text text-muted"></small>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="speaker">选择语音：</label>
+                                    <label for="speaker" data-i18n="main.voiceLabel">选择语音：</label>
                                     <select class="form-control" id="speaker" required>
                                         <option value="">加载中...</option>
                                     </select>
@@ -102,7 +135,7 @@ font-src 'self' https://cdnjs.cloudflare.com;">
 
                             <div class="form-group">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <label for="text">输入文本：</label>
+                                    <label for="text" data-i18n="main.textLabel">输入文本：</label>
                                     <div class="input-group" style="width: auto;">
                                         <input type="number" 
                                                class="form-control form-control-sm" 
@@ -125,28 +158,28 @@ font-src 'self' https://cdnjs.cloudflare.com;">
                                     rows="4" 
                                     required 
                                     maxlength="50000"></textarea>
-                                <small id="charCount" class="form-text text-muted">最多50000个字符，目前已输入0个字符；长文本将智能分段生成语音。</small>
+                                <small id="charCount" class="form-text text-muted" data-i18n="main.charCount">最多50000个字符，目前已输入0个字符；长文本将智能分段生成语音。</small>
                             </div>
 
                             <div class="form-group">
-                                <label for="rate">语速: <span id="rateValue">0</span></label>
+                                <label for="rate" data-i18n="main.speedLabel">语速: <span id="rateValue">0</span></label>
                                 <input type="range" class="form-control-range" id="rate" name="rate" min="-100" max="100" value="0">
                             </div>
 
                             <div class="form-group">
-                                <label for="pitch">语调: <span id="pitchValue">0</span></label>
+                                <label for="pitch" data-i18n="main.pitchLabel">语调: <span id="pitchValue">0</span></label>
                                 <input type="range" class="form-control-range" id="pitch" name="pitch" min="-100" max="100" value="0">
                             </div>
 
                             <div id="error" class="alert alert-danger" style="display: none;"></div>
 
-                            <button type="button" class="btn btn-info btn-block mb-3" id="previewButton">试听前20个字</button>
-                            <button type="button" class="btn btn-primary btn-block" id="generateButton">生成语音</button>
+                            <button type="button" class="btn btn-info btn-block mb-3" id="previewButton" data-i18n="main.preview">试听前20个字</button>
+                            <button type="button" class="btn btn-primary btn-block" id="generateButton" data-i18n="main.generate">生成语音</button>
                         </form>
 
                         <div class="mt-4" id="result">
                             <audio id="audio" controls class="w-100"></audio>
-                            <a id="download" class="btn btn-success btn-block mt-3" href="#" download="voice.mp3">下载语音文件</a>
+                            <a id="download" class="btn btn-success btn-block mt-3" href="#" download="voice.mp3" data-i18n="main.download">下载语音文件</a>
                         </div>
 
                         <div class="mt-4 text-center" id="loading" style="display: none;">
@@ -160,10 +193,10 @@ font-src 'self' https://cdnjs.cloudflare.com;">
             <div class="col-md-8 col-lg-6 mb-3">
                 <div class="card shadow-sm h-100">
                     <div class="card-header text-center">
-                        <h2>历史记录</h2>
+                        <h2 data-i18n="history.title">历史记录</h2>
                     </div>
                     <div class="card-body history-container">
-                        <button onclick="clearHistory()" class="btn btn-warning btn-block mb-3">清除历史</button>
+                        <button onclick="clearHistory()" class="btn btn-warning btn-block mb-3" data-i18n="history.clear">清除历史</button>
                         <div id="historyItems"></div>
                     </div>
                 </div>
@@ -173,15 +206,16 @@ font-src 'self' https://cdnjs.cloudflare.com;">
 
     <footer class="text-center mt-5">
         <p>
-            <a href="https://zwei.de.eu.org" target="_blank">Zwei</a> | 
-            <a href="https://github.com/bestZwei/ciallo-tts" target="_blank">Code</a>
+            <a href="https://zwei.de.eu.org" target="_blank" data-i18n="footer.author">Zwei</a> | 
+            <a href="https://github.com/bestZwei/ciallo-tts" target="_blank" data-i18n="footer.code">Code</a>
         </p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="i18n.js"></script>
+    <script type="module" src="script.js"></script>
 
 </body>
 </html>

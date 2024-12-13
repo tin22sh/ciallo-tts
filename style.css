@@ -264,3 +264,42 @@ footer a:hover {
 .toast-loading .fa-spinner {
     margin-right: 8px;
 }
+
+/* 添加导航栏样式 */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.1);
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.dropdown-item {
+    padding: 8px 20px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+/* 调整主容器边距，适应新的导航栏 */
+.container-fluid {
+    margin-top: 2rem !important;
+}
+
+/* 语言切换按钮样式 */
+.nav-link .fa-globe {
+    margin-right: 5px;
+}

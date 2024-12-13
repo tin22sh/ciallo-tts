@@ -1,3 +1,5 @@
+import { i18n } from './i18n.js';
+
 let apiConfig;
 let lastRequestTime = 0;
 let currentAudioURL = null;
@@ -49,7 +51,9 @@ function updateSliderLabel(sliderId, labelId) {
     });
 }
 
-$(document).ready(function() {
+$(document).ready(async function() {
+    await i18n.init();
+    
     loadSpeakers().then(() => {
         $('#apiTips').text('使用 Workers API，每天限制 100000 次请求');
         
@@ -94,7 +98,7 @@ $(document).ready(function() {
 
         $('#text').on('input', function() {
             const currentLength = $(this).val().length;
-            $('#charCount').text(`最多50000个字符，目前已输入${currentLength}个字符；长文本将智能分段生成语音。`);
+            $('#charCount').text(i18n.formatMessage('main.charCount', { count: currentLength }));
         });
 
         // 添加插入停顿功能
@@ -125,6 +129,12 @@ $(document).ready(function() {
             let value = parseFloat($(this).val());
             if (value > 100) $(this).val(100);
             if (value < 0.01 && value !== '') $(this).val(0.01);
+        });
+
+        // 监听语言变化事件
+        window.addEventListener('localeChanged', () => {
+            // 更新所有需要翻译的动态内容
+            updateDynamicTranslations();
         });
     });
 });
@@ -278,8 +288,8 @@ async function makeRequest(url, isPreview, text, isDenoApi, requestId = '') {
     }
 }
 
-function showError(message) {
-    showMessage(message, 'danger');
+function showError(messageKey, params = {}) {
+    showMessage(i18n.formatMessage(messageKey, params), 'danger');
 }
 
 function addHistoryItem(timestamp, speaker, text, audioBlob, requestInfo = '') {
@@ -726,7 +736,7 @@ async function generateVoiceForLongText(segments, currentRequestId) {
     throw new Error('所有片段生成失败');
 }
 
-// 在 body 末尾添加 toast 容器
+// 在 body 末尾添加 toast ���器
 $('body').append('<div class="toast-container"></div>');
 
 // 可以添加其他类型的消息提示
@@ -736,4 +746,13 @@ function showWarning(message) {
 
 function showInfo(message) {
     showMessage(message, 'info');
+}
+
+// 添加动态内容更新函数
+function updateDynamicTranslations() {
+    // 更新API提示
+    const apiName = $('#api').val();
+    $('#apiTips').text(i18n.translate(`main.apiTips.${apiName}`));
+    
+    // 更新其他动态内容...
 }
