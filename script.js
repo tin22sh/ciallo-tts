@@ -81,7 +81,7 @@ $(document).ready(async function() {
             if (canMakeRequest()) {
                 generateVoice(false);
             } else {
-                showError('请稍候再试，3秒只能请求一次。');
+                showError('messages.error.requestLimit');
             }
         });
 
@@ -89,7 +89,7 @@ $(document).ready(async function() {
             if (canMakeRequest()) {
                 generateVoice(true);
             } else {
-                showError('请稍候再试，每3秒只能请求一次。');
+                showError('messages.error.requestLimit');
             }
         });
 
@@ -102,7 +102,7 @@ $(document).ready(async function() {
         $('#insertPause').on('click', function() {
             const seconds = parseFloat($('#pauseSeconds').val());
             if (isNaN(seconds) || seconds < 0.01 || seconds > 100) {
-                showError('请输入0.01到100之间的数字');
+                showError('messages.error.invalidPause');
                 return;
             }
             
@@ -121,7 +121,7 @@ $(document).ready(async function() {
             textarea.focus();
         });
 
-        // 限制输入数字范围
+        // 限制输入数字围
         $('#pauseSeconds').on('input', function() {
             let value = parseFloat($(this).val());
             if (value > 100) $(this).val(100);
@@ -150,18 +150,22 @@ function generateVoice(isPreview) {
     const text = $('#text').val().trim();
     
     if (!text) {
-        showError('请输入要转换的文本');
+        showError('messages.error.textRequired');
         return;
     }
 
     if (isPreview) {
         const previewText = text.substring(0, 20);
-        makeRequest(apiUrl, true, previewText, apiName === 'deno-api');
+        makeRequest(apiUrl, true, previewText, apiName === 'deno-api')
+            .catch(error => {
+                showError('messages.error.serverError', { status: error.message });
+            });
         return;
     }
 
     if (!canMakeRequest()) {
-        return;
+        showError('messages.error.generating');
+        return false;
     }
 
     // 设置生成状态
@@ -360,6 +364,13 @@ function playAudio(audioURL) {
     const audioElement = $('#audio')[0];
     const allPlayButtons = $('.play-btn');
     
+    audioElement.addEventListener('error', function(error) {
+        if (error.name !== 'AbortError') {  // 忽略中止错误
+            console.error('播放失败:', error);
+            showError('messages.error.playFailed');
+        }
+    });
+    
     // 如果点击的是当前正在播放的音频
     if (audioElement.src === audioURL && !audioElement.paused) {
         audioElement.pause();
@@ -389,7 +400,7 @@ function playAudio(audioURL) {
     }).catch(error => {
         if (error.name !== 'AbortError') {  // 忽略中止错误
             console.error('播放失败:', error);
-            showError('音频播放失败，���重试');
+            showError('音频播放失败，重试');
         }
     });
     
@@ -485,7 +496,7 @@ function getTextLength(str) {
         return acc + (char.charCodeAt(0) > 127 ? 2 : 1);
     }, 0);
 
-    // 将停顿时间转换为等效字符长度（1秒 = 11个单位��相当于5.5个中文字符）
+    // 将停顿时间转换为等效字符长度（1秒 = 11个单位相当于5.5个中文字符）
     const pauseLength = Math.round(totalPauseTime * 11);
 
     return textLength + pauseLength;
@@ -580,13 +591,13 @@ function splitText(text, maxLength = 5000) {
                         searchLength += remainingText.charCodeAt(j) > 127 ? 2 : 1;
                         
                         if (punctuationGroups[priority].includes(remainingText[j])) {
-                            // 找到当前优先级的标点，记录位置并停止搜索
+                            // 找到当前优先级的标点，记录置并停止搜索
                             bestPriorityFound = priority;
                             bestSplitIndex = j;
                             break;
                         }
                     }
-                    // 如果在当前优先级找到了分段点，就不再检查更低优先级
+                    // 如果在当前优先级找到了分段点。就不再检查更低优先级
                     if (bestSplitIndex > -1) break;
                 }
                 break;
