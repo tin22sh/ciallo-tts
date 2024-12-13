@@ -47,8 +47,11 @@ font-src 'self' https://cdnjs.cloudflare.com;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
     <!-- 建议添加预加载关键资源 -->
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="script.js" as="script">
+    <link rel="modulepreload" href="i18n.js" crossorigin="anonymous">
+    <link rel="modulepreload" href="script.js" crossorigin="anonymous">
+    <link rel="preload" href="style.css" as="style" crossorigin="anonymous">
+    <link rel="preload" href="i18n/zh-CN.json" as="fetch" crossorigin="anonymous" type="application/json">
+    <link rel="preload" href="speakers.json" as="fetch" crossorigin="anonymous" type="application/json">
 </head>
 <body>
     <!-- 添加结构化数据 -->
