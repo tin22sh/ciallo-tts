@@ -267,31 +267,59 @@ footer a:hover {
 
 /* 添加导航栏样式 */
 .navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    background: linear-gradient(145deg, #4a90e2 0%, #357ab8 100%);
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    padding: 1rem;
 }
 
 .navbar-brand img {
     transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.1));
 }
 
 .navbar-brand:hover img {
     transform: scale(1.1);
 }
 
+.navbar-nav .nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    margin: 0 0.2rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-item.active .nav-link::after {
+    width: 100%;
+}
+
 .dropdown-menu {
     border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    animation: dropdownFade 0.3s ease;
+}
+
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .dropdown-item {
     padding: 8px 20px;
     transition: all 0.2s ease;
-}
-
-.dropdown-item:hover {
-    background-color: #f8f9fa;
-    transform: translateX(5px);
 }
 
 /* 调整主容器边距，适应新的导航栏 */

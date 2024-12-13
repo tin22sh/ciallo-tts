@@ -13,9 +13,16 @@ class I18n {
     async loadTranslations(locale) {
         try {
             const response = await fetch(`i18n/${locale}.json`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             this.translations = await response.json();
         } catch (error) {
-            console.error('Failed to load translations:', error);
+            console.error(`Failed to load translations for ${locale}:`, error);
+            if (locale !== 'zh-CN') {
+                console.log('Falling back to default language (zh-CN)');
+                await this.loadTranslations('zh-CN');
+            }
         }
     }
 

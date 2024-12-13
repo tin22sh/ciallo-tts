@@ -40,7 +40,34 @@
       "requestLimit": "请稍候再试，3秒只能请求一次。",
       "generating": "请等待当前语音生成完成",
       "playFailed": "音频播放失败，请重试",
-      "loadSpeakersFailed": "加载讲述者失败，请刷新页面重试。"
+      "loadSpeakersFailed": "加载讲述者失败，请刷新页面重试。",
+      "loadingError": "加载失败",
+      "savingError": "保存失败",
+      "networkError": "网络错误",
+      "unknownError": "未知错误"
+    },
+    "success": {
+      "saved": "保存成功",
+      "generated": "生成成功",
+      "copied": "已复制"
+    },
+    "info": {
+      "loading": "加载中...",
+      "processing": "处理中...",
+      "waiting": "请稍候..."
     }
+  },
+  "about": {
+    "pageTitle": "关于 Ciallo TTS",
+    "title": "关于 Ciallo TTS",
+    "description": "Ciallo TTS 是一款免费的在线文本转语音工具，支持多种语言和声音。",
+    "features": "主要特点",
+    "feature1": "支持多种语言和声音选择",
+    "feature2": "可调节语速和语调",
+    "feature3": "支持长文本智能分段",
+    "feature4": "提供即时试听功能",
+    "feature5": "支持音频下载",
+    "contact": "联系方式",
+    "contactInfo": "如有问题或建议，请访问我们的 GitHub 页面提交 issue。"
   }
 } 
