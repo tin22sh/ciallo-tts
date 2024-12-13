@@ -55,6 +55,7 @@ $(document).ready(async function() {
     await i18n.init();
     
     loadSpeakers().then(() => {
+        // 初始化 API 提示
         updateApiTips('workers-api');
         
         // 初始化音频播放器
@@ -388,7 +389,7 @@ function playAudio(audioURL) {
     }).catch(error => {
         if (error.name !== 'AbortError') {  // 忽略中止错误
             console.error('播放失败:', error);
-            showError('音频播放失败，请重试');
+            showError('音频播放失败，���重试');
         }
     });
     
@@ -484,7 +485,7 @@ function getTextLength(str) {
         return acc + (char.charCodeAt(0) > 127 ? 2 : 1);
     }, 0);
 
-    // 将停顿时间转换为等效字符长度（1秒 = 11个单位，相当于5.5个中文字符）
+    // 将停顿时间转换为等效字符长度（1秒 = 11个单位��相当于5.5个中文字符）
     const pauseLength = Math.round(totalPauseTime * 11);
 
     return textLength + pauseLength;
@@ -740,7 +741,7 @@ async function generateVoiceForLongText(segments, currentRequestId) {
     throw new Error(i18n.translate('messages.error.allSegmentsFailed'));
 }
 
-// 在 body 末尾添加 toast 器
+// 在 body 末尾加 toast 器
 $('body').append('<div class="toast-container"></div>');
 
 // 可以添加其他类型的消息提示
@@ -756,7 +757,7 @@ function showInfo(message) {
 function updateDynamicTranslations() {
     // 更新API提示
     const apiName = $('#api').val();
-    $('#apiTips').text(i18n.translate(`main.apiTips.${apiName}`));
+    updateApiTips(apiName);
     
     // 更新其他动态内容...
 }
