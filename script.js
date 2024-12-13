@@ -61,6 +61,9 @@ $(document).ready(async function() {
         // 初始化音频播放器
         initializeAudioPlayer();
         
+        // 初始化字符计数
+        updateCharCount();
+        
         $('[data-toggle="tooltip"]').tooltip();
 
         $('#api').on('change', function() {
@@ -74,8 +77,9 @@ $(document).ready(async function() {
             updateApiTips(apiName);
         });
 
-        updateSliderLabel('rate', 'rateValue');
-        updateSliderLabel('pitch', 'pitchValue');
+        $('#text').on('input', function() {
+            updateCharCount();
+        });
 
         $('#generateButton').on('click', function() {
             if (canMakeRequest()) {
@@ -91,11 +95,6 @@ $(document).ready(async function() {
             } else {
                 showError('messages.error.requestLimit');
             }
-        });
-
-        $('#text').on('input', function() {
-            const currentLength = $(this).val().length;
-            $('#charCount').text(i18n.translate('main.charCount').replace('{count}', currentLength));
         });
 
         // 添加插入停顿功能
@@ -131,8 +130,7 @@ $(document).ready(async function() {
         // 监听语言变化事件
         window.addEventListener('localeChanged', () => {
             // 更新所有需要翻译的动态内容
-            const currentLength = $('#text').val().length;
-            $('#charCount').text(i18n.translate('main.charCount').replace('{count}', currentLength));
+            updateCharCount();
             updateDynamicTranslations();
         });
     });
@@ -397,7 +395,7 @@ function playAudio(audioURL) {
     // 重置所有按钮标
     allPlayButtons.html('<i class="fas fa-play"></i>');
     
-    // 设置新的音频源并���放
+    
     audioElement.src = audioURL;
     audioElement.load();
     
@@ -495,7 +493,7 @@ const SENTENCE_ENDINGS = /[.。！!?？]/;
 const PARAGRAPH_ENDINGS = /[\n\r]/;
 
 function getTextLength(str) {
-    // 除 XML 标签，但记录停顿时间
+
     let totalPauseTime = 0;
     const textWithoutTags = str.replace(/<break\s+time="(\d+(?:\.\d+)?)(m?s)"\s*\/>/g, (match, time, unit) => {
         const seconds = unit === 'ms' ? parseFloat(time) / 1000 : parseFloat(time);
@@ -789,4 +787,9 @@ function updateApiTips(apiName) {
     // 移除 '-api' 后缀
     const cleanApiName = apiName.replace('-api', '');
     $('#apiTips').text(i18n.translate(`main.apiTips.${cleanApiName}`));
+}
+
+function updateCharCount() {
+    const currentLength = $('#text').val().length;
+    $('#charCount').text(i18n.translate('main.charCount').replace('{count}', currentLength));
 }
