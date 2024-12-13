@@ -42,7 +42,6 @@ class I18n {
             element.placeholder = this.translate(key);
         });
     }
-
     async setLocale(locale) {
         this.currentLocale = locale;
         localStorage.setItem('locale', locale);
