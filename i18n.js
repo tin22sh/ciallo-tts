@@ -41,13 +41,6 @@ class I18n {
             const key = element.getAttribute('data-i18n-placeholder');
             element.placeholder = this.translate(key);
         });
-
-        // 更新API提示
-        const apiSelect = document.getElementById('api');
-        if (apiSelect) {
-            const apiName = apiSelect.value;
-            updateApiTips(apiName);
-        }
     }
 
     async setLocale(locale) {
