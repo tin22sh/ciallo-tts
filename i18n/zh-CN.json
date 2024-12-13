@@ -41,6 +41,11 @@
       "generating": "请等待当前语音生成完成",
       "playFailed": "音频播放失败，请重试",
       "loadSpeakersFailed": "加载讲述者失败，请刷新页面重试。",
+      "serverError": "服务器响应错误: {status}",
+      "invalidAudio": "无效的音频文件",
+      "segmentError": "第 {segment}/{total} 段生成失败：{error}",
+      "allSegmentsFailed": "所有片段生成失败",
+      "retrySegment": "分段 {segment} 生成失败 (重试 {retry}/{maxRetry})",
       "loadingError": "加载失败",
       "savingError": "保存失败",
       "networkError": "网络错误",
@@ -54,7 +59,10 @@
     "info": {
       "loading": "加载中...",
       "processing": "处理中...",
-      "waiting": "请稍候..."
+      "waiting": "请稍候...",
+      "generating": "正在生成语音，请稍候...",
+      "generatingSegment": "正在生成#{request}请求的 {current}/{total} 段语音{retry}...",
+      "loadingSpeakers": "加载中..."
     }
   },
   "about": {

@@ -40,7 +40,29 @@
       "requestLimit": "Please wait, only one request every 3 seconds.",
       "generating": "Please wait for the current voice generation to complete",
       "playFailed": "Audio playback failed, please try again",
-      "loadSpeakersFailed": "Failed to load speakers, please refresh the page."
+      "loadSpeakersFailed": "Failed to load speakers, please refresh the page.",
+      "serverError": "Server response error: {status}",
+      "invalidAudio": "Invalid audio file",
+      "segmentError": "Segment {segment}/{total} generation failed: {error}",
+      "allSegmentsFailed": "All segments failed to generate",
+      "retrySegment": "Segment {segment} generation failed (retry {retry}/{maxRetry})",
+      "loadingError": "Loading failed",
+      "savingError": "Save failed",
+      "networkError": "Network error",
+      "unknownError": "Unknown error"
+    },
+    "success": {
+      "saved": "Saved successfully",
+      "generated": "Generated successfully",
+      "copied": "Copied"
+    },
+    "info": {
+      "loading": "Loading...",
+      "processing": "Processing...",
+      "waiting": "Please wait...",
+      "generating": "Generating voice, please wait...",
+      "generatingSegment": "Generating segment {current}/{total} for request #{request}{retry}...",
+      "loadingSpeakers": "Loading..."
     }
   }
 } 

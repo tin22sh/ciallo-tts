@@ -26,7 +26,7 @@ function loadSpeakers() {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error(`加载讲述者失败：${textStatus} - ${errorThrown}`);
-            showError('加载讲述者失败，请刷新页面重试。');
+            showError('messages.error.loadSpeakersFailed');
         }
     });
 }
@@ -258,14 +258,14 @@ async function makeRequest(url, isPreview, text, isDenoApi, requestId = '') {
         });
 
         if (!response.ok) {
-            throw new Error(`服务器响应错误: ${response.status}`);
+            throw new Error(i18n.formatMessage('messages.error.serverError', { status: response.status }));
         }
 
         const blob = await response.blob();
         
         // 验证返回的blob是否为有效的音频文件
         if (!blob.type.includes('audio/') || blob.size === 0) {
-            throw new Error('无效的音频文件');
+            throw new Error(i18n.translate('messages.error.invalidAudio'));
         }
 
         if (!isPreview) {
@@ -462,7 +462,7 @@ function showMessage(message, type = 'danger') {
     // 3秒后淡出并移除
     setTimeout(() => {
         toast.removeClass('show');
-        setTimeout(() => toast.remove(), 300);
+        setTimeout(() => toast.remove(), 3000);
     }, 3000);
 }
 
@@ -699,11 +699,19 @@ async function generateVoiceForLongText(segments, currentRequestId) {
                 retryCount++;
                 
                 if (retryCount < MAX_RETRIES) {
-                    console.error(`分段 ${i + 1} 生成失败 (重试 ${retryCount}/${MAX_RETRIES}):`, error);
+                    console.error(i18n.formatMessage('messages.error.retrySegment', {
+                        segment: i + 1,
+                        retry: retryCount,
+                        maxRetry: MAX_RETRIES
+                    }), error);
                     const waitTime = 3000 + (retryCount * 2000);
                     await new Promise(resolve => setTimeout(resolve, waitTime));
                 } else {
-                    showError(`第 ${i + 1}/${totalSegments} 段生成失败：${error.message}`);
+                    showError('messages.error.segmentError', {
+                        segment: i + 1,
+                        total: totalSegments,
+                        error: error.message
+                    });
                 }
             }
         }
@@ -723,13 +731,13 @@ async function generateVoiceForLongText(segments, currentRequestId) {
         const finalBlob = new Blob(results, { type: 'audio/mpeg' });
         const timestamp = new Date().toLocaleTimeString();
         const speaker = $('#speaker option:selected').text();
-        // 使用之前���理过的文本
+        // 使用之前理过的文本
         const mergeRequestInfo = `#${currentRequestId}(合并)`;
         addHistoryItem(timestamp, speaker, shortenedText, finalBlob, mergeRequestInfo);
         return finalBlob;
     }
 
-    throw new Error('所有片段生成失败');
+    throw new Error(i18n.translate('messages.error.allSegmentsFailed'));
 }
 
 // 在 body 末尾添加 toast 器
