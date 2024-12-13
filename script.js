@@ -95,7 +95,7 @@ $(document).ready(async function() {
 
         $('#text').on('input', function() {
             const currentLength = $(this).val().length;
-            $('#charCount').text(i18n.translate('main.charCount').replace('{count}', currentLength));
+            $('#charCount').text(i18n.translate('form.charLimit').replace('{count}', currentLength));
         });
 
         // 添加插入停顿功能
@@ -132,7 +132,7 @@ $(document).ready(async function() {
         window.addEventListener('localeChanged', () => {
             // 更新所有需要翻译的动态内容
             const currentLength = $('#text').val().length;
-            $('#charCount').text(i18n.translate('main.charCount').replace('{count}', currentLength));
+            $('#charCount').text(i18n.translate('form.charLimit').replace('{count}', currentLength));
             updateDynamicTranslations();
         });
     });
@@ -397,7 +397,7 @@ function playAudio(audioURL) {
     // 重置所有按钮标
     allPlayButtons.html('<i class="fas fa-play"></i>');
     
-    // 设��新的音频源并播放
+    // 设置新的音频源并播放
     audioElement.src = audioURL;
     audioElement.load();
     
@@ -495,7 +495,7 @@ const SENTENCE_ENDINGS = /[.。！!?？]/;
 const PARAGRAPH_ENDINGS = /[\n\r]/;
 
 function getTextLength(str) {
-    // 移除 XML 标签，但记录停顿时间
+    // ���除 XML 标签，但记录停顿时间
     let totalPauseTime = 0;
     const textWithoutTags = str.replace(/<break\s+time="(\d+(?:\.\d+)?)(m?s)"\s*\/>/g, (match, time, unit) => {
         const seconds = unit === 'ms' ? parseFloat(time) / 1000 : parseFloat(time);
@@ -630,7 +630,7 @@ function splitText(text, maxLength = 5000) {
 function showLoading(message) {
     let loadingToast = $('.toast-loading');
     if (loadingToast.length) {
-        // 如果已存在 loading toast，只更新进度��，不更新消息
+        // 如果已存在 loading toast，只更新进度，不更新消息
         loadingToast.find('.progress-bar').css('width', '0%');
         return;
     }
