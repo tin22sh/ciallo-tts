@@ -16,8 +16,11 @@ const API_CONFIG = {
 };
 
 function loadSpeakers() {
+    const locale = i18n.currentLocale;
+    const speakersFile = locale === 'en-US' ? 'speakers_en.json' : 'speakers_zh.json';
+    
     return $.ajax({
-        url: 'speakers.json',
+        url: speakersFile,
         method: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -27,6 +30,10 @@ function loadSpeakers() {
         error: function(jqXHR, textStatus, errorThrown) {
             console.error(`加载讲述者失败：${textStatus} - ${errorThrown}`);
             showError('messages.error.loadSpeakersFailed');
+            // 如果加载失败，尝试加载默认的中文配置
+            if (speakersFile !== 'speakers_zh.json') {
+                loadSpeakers('speakers_zh.json');
+            }
         }
     });
 }
@@ -132,6 +139,8 @@ $(document).ready(async function() {
             // 更新所有需要翻译的动态内容
             updateCharCount();
             updateDynamicTranslations();
+            // 重新加载讲述人配置
+            loadSpeakers();
         });
     });
 });
