@@ -9,8 +9,8 @@
     "title": "Text to Speech",
     "apiLabel": "Select API:",
     "apiTips": {
-      "workers": "Using Workers API, limited to 100,000 requests per day",
-      "deno": "Using Deno API, based on Lobe-TTS, speed and pitch adjustment not supported"
+      "workersapi": "Using Workers API, limited to 100,000 requests per day",
+      "denoapi": "Using Deno API, based on Lobe-TTS, speed and pitch adjustment not supported"
     },
     "voiceLabel": "Select Voice:",
     "textLabel": "Enter Text:",

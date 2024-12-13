@@ -9,8 +9,8 @@
     "title": "文本转语音",
     "apiLabel": "选择API：",
     "apiTips": {
-      "workers": "使用 Workers API，每天限制 100000 次请求",
-      "deno": "使用 Deno API，基于 Lobe-TTS，暂不支持语速语调调整"
+      "workersapi": "使用 Workers API，每天限制 100000 次请求",
+      "denoapi": "使用 Deno API，基于 Lobe-TTS，暂不支持语速语调调整"
     },
     "voiceLabel": "选择语音：",
     "textLabel": "输入文本：",

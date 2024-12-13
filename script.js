@@ -70,11 +70,7 @@ $(document).ready(async function() {
             updateSliderLabel('rate', 'rateValue');
             updateSliderLabel('pitch', 'pitchValue');
             
-            const tips = {
-                'workers-api': '使用 Workers API，每天限制 100000 次请求',
-                'deno-api': '使用 Deno API，基于 Lobe-TTS，暂不支持语速语调调整'
-            };
-            $('#apiTips').text(tips[apiName] || '');
+            $('#apiTips').text(i18n.translate(`main.apiTips.${apiName.replace('-', '')}`));
         });
 
         updateSliderLabel('rate', 'rateValue');
@@ -736,7 +732,7 @@ async function generateVoiceForLongText(segments, currentRequestId) {
     throw new Error('所有片段生成失败');
 }
 
-// 在 body 末尾添加 toast ���器
+// 在 body 末尾添加 toast 器
 $('body').append('<div class="toast-container"></div>');
 
 // 可以添加其他类型的消息提示

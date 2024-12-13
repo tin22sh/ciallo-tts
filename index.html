@@ -46,12 +46,17 @@ media-src 'self' blob: https:;
 font-src 'self' https://cdnjs.cloudflare.com;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
-    <!-- 建议添加预加载关键资源 -->
-    <link rel="modulepreload" href="i18n.js" crossorigin="anonymous">
-    <link rel="modulepreload" href="script.js" crossorigin="anonymous">
-    <link rel="preload" href="style.css" as="style" crossorigin="anonymous">
-    <link rel="preload" href="i18n/zh-CN.json" as="fetch" crossorigin="anonymous" type="application/json">
-    <link rel="preload" href="speakers.json" as="fetch" crossorigin="anonymous" type="application/json">
+    <!-- 样式表直接引用 -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- 模块预加载 -->
+    <link rel="modulepreload" href="i18n.js">
+    <link rel="modulepreload" href="script.js">
+    
+    <!-- 数据预加载 -->
+    <link rel="prefetch" href="i18n/zh-CN.json" as="fetch">
+    <link rel="prefetch" href="i18n/en-US.json" as="fetch">
+    <link rel="prefetch" href="speakers.json" as="fetch">
 </head>
 <body>
     <!-- 添加结构化数据 -->
@@ -147,9 +152,10 @@ font-src 'self' https://cdnjs.cloudflare.com;">
                                                max="100" 
                                                step="0.01" 
                                                style="width: 80px;"
-                                               placeholder="秒数">
+                                               data-i18n-placeholder="main.seconds">
                                         <div class="input-group-append">
-                                            <button class="btn btn-sm btn-outline-secondary" type="button" id="insertPause">
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" id="insertPause" 
+                                                    data-i18n="main.insertPause">
                                                 插入停顿
                                             </button>
                                         </div>
