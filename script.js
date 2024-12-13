@@ -157,6 +157,16 @@ function generateVoice(isPreview) {
     if (isPreview) {
         const previewText = text.substring(0, 20);
         makeRequest(apiUrl, true, previewText, apiName === 'deno-api')
+            .then(blob => {
+                if (blob) {
+                    if (currentAudioURL) {
+                        URL.revokeObjectURL(currentAudioURL);
+                    }
+                    currentAudioURL = URL.createObjectURL(blob);
+                    $('#result').show();
+                    $('#audio').attr('src', currentAudioURL);
+                }
+            })
             .catch(error => {
                 showError('messages.error.serverError', { status: error.message });
             });
@@ -400,7 +410,7 @@ function playAudio(audioURL) {
     }).catch(error => {
         if (error.name !== 'AbortError') {  // 忽略中止错误
             console.error('播放失败:', error);
-            showError('音频播放失败，重试');
+            showError('音频播放失败，请重试');
         }
     });
     
@@ -743,7 +753,7 @@ async function generateVoiceForLongText(segments, currentRequestId) {
         const finalBlob = new Blob(results, { type: 'audio/mpeg' });
         const timestamp = new Date().toLocaleTimeString();
         const speaker = $('#speaker option:selected').text();
-        // 使用之前理过的文本
+        // 使用之前处理理过的文本
         const mergeRequestInfo = `#${currentRequestId}(合并)`;
         addHistoryItem(timestamp, speaker, shortenedText, finalBlob, mergeRequestInfo);
         return finalBlob;
@@ -752,7 +762,7 @@ async function generateVoiceForLongText(segments, currentRequestId) {
     throw new Error(i18n.translate('messages.error.allSegmentsFailed'));
 }
 
-// 在 body 末尾加 toast 器
+// 在 body 末尾加 toast 
 $('body').append('<div class="toast-container"></div>');
 
 // 可以添加其他类型的消息提示
