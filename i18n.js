@@ -46,10 +46,7 @@ class I18n {
         const apiSelect = document.getElementById('api');
         if (apiSelect) {
             const apiName = apiSelect.value;
-            const apiTips = document.getElementById('apiTips');
-            if (apiTips) {
-                apiTips.textContent = this.translate(`main.apiTips.${apiName.replace('-', '')}`);
-            }
+            updateApiTips(apiName);
         }
     }
 

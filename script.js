@@ -55,7 +55,7 @@ $(document).ready(async function() {
     await i18n.init();
     
     loadSpeakers().then(() => {
-        $('#apiTips').text('使用 Workers API，每天限制 100000 次请求');
+        updateApiTips('workers-api');
         
         // 初始化音频播放器
         initializeAudioPlayer();
@@ -70,7 +70,7 @@ $(document).ready(async function() {
             updateSliderLabel('rate', 'rateValue');
             updateSliderLabel('pitch', 'pitchValue');
             
-            $('#apiTips').text(i18n.translate(`main.apiTips.${apiName.replace('-', '')}`));
+            updateApiTips(apiName);
         });
 
         updateSliderLabel('rate', 'rateValue');
@@ -723,7 +723,7 @@ async function generateVoiceForLongText(segments, currentRequestId) {
         const finalBlob = new Blob(results, { type: 'audio/mpeg' });
         const timestamp = new Date().toLocaleTimeString();
         const speaker = $('#speaker option:selected').text();
-        // 使用之前清理过的文本
+        // 使用之前���理过的文本
         const mergeRequestInfo = `#${currentRequestId}(合并)`;
         addHistoryItem(timestamp, speaker, shortenedText, finalBlob, mergeRequestInfo);
         return finalBlob;
@@ -751,4 +751,10 @@ function updateDynamicTranslations() {
     $('#apiTips').text(i18n.translate(`main.apiTips.${apiName}`));
     
     // 更新其他动态内容...
+}
+
+function updateApiTips(apiName) {
+    // 移除 '-api' 后缀
+    const cleanApiName = apiName.replace('-api', '');
+    $('#apiTips').text(i18n.translate(`main.apiTips.${cleanApiName}`));
 }
