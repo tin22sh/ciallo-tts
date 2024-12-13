@@ -16,7 +16,7 @@
     "textLabel": "Enter Text:",
     "insertPause": "Insert Pause",
     "seconds": "Seconds",
-    "charCount": "Maximum 50000 characters, currently entered 0 characters; long text will be intelligently segmented.",
+    "charCount": "Maximum 50000 characters, currently entered {count} characters; long text will be intelligently segmented.",
     "speedLabel": "Speed:",
     "pitchLabel": "Pitch:",
     "preview": "Preview First 20 Characters",
