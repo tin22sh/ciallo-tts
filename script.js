@@ -6,7 +6,7 @@ let isGenerating = false;
 
 const API_CONFIG = {
     'workers-api': {
-        url: 'https://voice-api-worker.391111.xyz',
+        url: 'https://voice-api-worker.391111.xyz/tts',
         authToken: ''
         // url: 'https://1220.tts-api.zwei.de.eu.org/tts',
         // authToken: 'your-key'
@@ -197,7 +197,7 @@ async function generateVoice(isPreview) {
             }
         }).finally(() => {
             hideLoading();
-            isGenerating = false;  // 重置生成状态
+            isGenerating = false; // 重置生成状态
             $('#generateButton').prop('disabled', false);
             $('#previewButton').prop('disabled', false);
         });
@@ -205,7 +205,7 @@ async function generateVoice(isPreview) {
         showLoading(`正在生成#${currentRequestId}请求的语音...`);
         const requestInfo = `#${currentRequestId}(1/1)`;
         makeRequest(apiUrl, false, text, apiName === 'deno-api', requestInfo)
-            .then(blob => {
+.then(blob => {
                 if (blob) {
                     const timestamp = new Date().toLocaleTimeString();
                     const speaker = $('#speaker option:selected').text();
@@ -214,9 +214,9 @@ async function generateVoice(isPreview) {
                     addHistoryItem(timestamp, speaker, shortenedText, blob, requestInfo);
                 }
             })
-            .finally(() => {
+.finally(() => {
                 hideLoading();
-                isGenerating = false;  // 重置生成状态
+                isGenerating = false; // 重置生成状态
                 $('#generateButton').prop('disabled', false);
                 $('#previewButton').prop('disabled', false);
             });
@@ -235,11 +235,11 @@ function escapeXml(text) {
 
     // 转义其他特殊字符
     tempText = tempText
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&apos;');
+.replace(/&/g, '&amp;')
+.replace(/</g, '&lt;')
+.replace(/>/g, '&gt;')
+.replace(/"/g, '&quot;')
+.replace(/'/g, '&apos;');
 
     // 还原 SSML 标签
     tempText = tempText.replace(/__SSML_TAG_(\d+)__/g, (_, index) => ssmlTags[parseInt(index)]);
@@ -259,8 +259,8 @@ async function makeRequest(url, isPreview, text, isDenoApi, requestId = '') {
         };
         
         // 如果是 workers-api，添加认证头
-        if (apiName === 'workers-api') {
-            headers['x-auth-token'] = API_CONFIG[apiName].authToken;
+if (apiName === 'workers-api') {
+        // headers['x-auth-token'] = API_CONFIG[apiName].authToken;
         }
 
         const response = await fetch(url, { 
