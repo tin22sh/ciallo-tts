@@ -6,8 +6,8 @@ let isGenerating = false;
 
 const API_CONFIG = {
     'workers-api': {
-        url: 'https://ttsapi.yort.de/tts',
-        authToken: 'alsjfjfal78794'
+        url: 'https://voice-api-worker.391111.xyz/tts',
+        authToken: 'your-key'
         // url: 'https://1220.tts-api.zwei.de.eu.org/tts',
         // authToken: 'your-key'
     },
