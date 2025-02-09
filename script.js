@@ -7,7 +7,7 @@ let isGenerating = false;
 const API_CONFIG = {
     'workers-api': {
         url: 'https://voice-api-worker.391111.xyz/tts',
-        authToken: ''
+        authToken: 'guest_123'
         // url: 'https://1220.tts-api.zwei.de.eu.org/tts',
         // authToken: 'your-key'
     },
