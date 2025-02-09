@@ -260,7 +260,7 @@ async function makeRequest(url, isPreview, text, isDenoApi, requestId = '') {
         
         // 如果是 workers-api，添加认证头
 if (apiName === 'workers-api') {
-        // headers['x-auth-token'] = API_CONFIG[apiName].authToken;
+        headers['x-auth-token'] = API_CONFIG[apiName].authToken;
         }
 
         const response = await fetch(url, { 
@@ -291,8 +291,8 @@ if (apiName === 'workers-api') {
             $('#result').show();
             $('#audio').attr('src', currentAudioURL);
             $('#download')
-                .removeClass('disabled')
-                .attr('href', currentAudioURL);
+.removeClass('disabled')
+.attr('href', currentAudioURL);
         }
 
         return blob;
@@ -322,22 +322,22 @@ function addHistoryItem(timestamp, speaker, text, audioBlob, requestInfo = '') {
     const cleanText = text.replace(/<break\s+time=["'](\d+(?:\.\d+)?[ms]s?)["']\s*\/>/g, '');
     
     const historyItem = $(`
-        <div class="history-item list-group-item" style="opacity: 0;">
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="text-truncate me-2" style="max-width: 70%;">
-                    <strong class="text-primary">${requestInfo}</strong> 
-                    ${timestamp} - <span class="text-primary">${speaker}</span> - ${cleanText}
-                </span>
-                <div class="btn-group flex-shrink-0">
-                    <button class="btn btn-sm btn-outline-primary play-btn" data-url="${audioURL}">
-                        <i class="fas fa-play"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-success" onclick="downloadAudio('${audioURL}')">
-                        <i class="fas fa-download"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+ <div class="history-item list-group-item" style="opacity: 0;">
+ <div class="d-flex justify-content-between align-items-center">
+ <span class="text-truncate me-2" style="max-width: 70%;">
+ <strong class="text-primary">${requestInfo}</strong> 
+ ${timestamp} - <span class="text-primary">${speaker}</span> - ${cleanText}
+ </span>
+ <div class="btn-group flex-shrink-0">
+ <button class="btn btn-sm btn-outline-primary play-btn" data-url="${audioURL}">
+ <i class="fas fa-play"></i>
+ </button>
+ <button class="btn btn-sm btn-outline-success" onclick="downloadAudio('${audioURL}')">
+ <i class="fas fa-download"></i>
+ </button>
+ </div>
+ </div>
+ </div>
     `);
     
     // 添加整个条目的点击事件
